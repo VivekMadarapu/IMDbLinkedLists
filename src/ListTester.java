@@ -1,18 +1,60 @@
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class ListTester {
 
-    public static void main(String[] args) {
-        ActorLinkedList actorList = new ActorLinkedList();
+    public static void main(String[] args) throws IOException {
+//        LinkedList actorList = new LinkedList();
+//
+//        Scanner file = new Scanner(new File("actors.txt"));
+//
+//        while (file.hasNext()){
+//            actorList.add(new Actor(file.nextLine()));
+//        }
+//
+//
+//        for(int i = 0; i < actorList.size();i++){
+//            System.out.println(actorList.get(i));
+//
+//        }
+//
+//        System.out.println("\n" + ((Actor) actorList.get(0)).getName());
 
-        actorList.add(new Actor("James"));
-        actorList.add(new Actor("Mary"));
-        actorList.add(new Actor("Derek"));
 
-        for(int i = 0; i < 3;i++){
-            System.out.println(actorList.get(i));
+        LinkedList movies = new LinkedList();
+
+        Scanner file = new Scanner(new File("actors.txt"));
+
+        while (file.hasNext()) {
+            String line = file.nextLine();
+            Movie movie = new Movie();
+            movie.setDate(line.substring(4));
+            movie.setTitle(line.substring(5,38).trim());
+            String actorStr = line.substring(39, 84).trim();
+            String[] actorArr = actorStr.split(", ");
+            LinkedList actors = new LinkedList();
+            for (String actor: actorArr) {
+                actors.add(new Actor(actor));
+            }
+            movie.setActors(actors);
+            String dirStr = line.substring(89, line.length()-1).trim();
+            String[] dirArr = dirStr.split(", ");
+            LinkedList directors = new LinkedList();
+            for (String dir: dirArr) {
+                directors.add(dir);
+            }
+            movie.setDirectors(directors);
+
+            movies.add(movie);
+        }
+
+        for(int i = 0; i < movies.size();i++){
+            System.out.println(movies.get(i));
 
         }
 
-        System.out.println(actorList.get(0).getName());
+        System.out.println("\n" + ((Movie) movies.get(0)).getTitle());
 
     }
 }
