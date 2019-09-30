@@ -1,3 +1,4 @@
+@SuppressWarnings("WeakerAccess")
 public class Movie {
     private String title;
     private String date;
@@ -52,6 +53,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie: " + title + "| Date: " + date + "| Actors: " + actors + "| Directors: " + directors;
+        return "Movie: " + title + "\t| Date: " + date + "\t| Actors: " + actors + "\t| Directors: " + directors;
     }
 }

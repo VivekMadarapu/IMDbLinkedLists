@@ -24,12 +24,12 @@ public class ListTester {
 
         LinkedList movies = new LinkedList();
 
-        Scanner file = new Scanner(new File("actors.txt"));
+        Scanner file = new Scanner(new File("movies.txt"));
 
         while (file.hasNext()) {
             String line = file.nextLine();
             Movie movie = new Movie();
-            movie.setDate(line.substring(4));
+            movie.setDate(line.substring(0, 4));
             movie.setTitle(line.substring(5,38).trim());
             String actorStr = line.substring(39, 84).trim();
             String[] actorArr = actorStr.split(", ");
@@ -39,7 +39,7 @@ public class ListTester {
             }
             movie.setActors(actors);
             String dirStr = line.substring(89, line.length()-1).trim();
-            String[] dirArr = dirStr.split(", ");
+            String[] dirArr = dirStr.split(",");
             LinkedList directors = new LinkedList();
             for (String dir: dirArr) {
                 directors.add(dir);
