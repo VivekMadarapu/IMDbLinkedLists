@@ -2,20 +2,48 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+@SuppressWarnings("WeakerAccess")
 public class IMDb {
 
     public static void main(String[] args) throws FileNotFoundException {
-        LinkedList actorList = new LinkedList();
-        Scanner actorFile = new Scanner(new File("actors.txt"));
+        LinkedList actors = new LinkedList();
+        initActors(actors);
 
+        LinkedList movies = new LinkedList();
+        initMovies(movies);
+
+        for(int i = 0; i < actors.size();i++){
+            StringBuilder print = new StringBuilder();
+            Actor actor = (Actor) actors.get(i);
+            print.append(actor.getName().trim());
+            print.append(" acted in ");
+            boolean hasActed = false;
+            for(int j = 0; j < movies.size();j++){
+                Movie movie = (Movie) movies.get(j);
+                if(movie.containsActor(actor)) {
+                    print.append(movie.getDate()).append(" ").append(movie.getTitle()).append(", ");
+                    hasActed = true;
+                }
+            }
+            if (!hasActed){
+                print.append("none  ");
+            }
+            print = new StringBuilder(print.substring(0, print.length() - 2));
+            System.out.println(print);
+        }
+
+    }
+
+    public static void initActors(LinkedList actorList) throws FileNotFoundException {
+        Scanner actorFile = new Scanner(new File("actors.txt"));
         while (actorFile.hasNext()){
             actorList.add(new Actor(actorFile.nextLine()));
         }
         System.out.println();
+    }
 
-        LinkedList movies = new LinkedList();
+    public static void initMovies(LinkedList movieList) throws FileNotFoundException {
         Scanner dirFile = new Scanner(new File("movies.txt"));
-
         while (dirFile.hasNext()) {
             String line = dirFile.nextLine();
             Movie movie = new Movie();
@@ -35,29 +63,9 @@ public class IMDb {
                 directors.add(dir);
             }
             movie.setDirectors(directors);
-            movies.add(movie);
+            movieList.add(movie);
         }
-
-        for(int i = 0; i < actorList.size();i++){
-            StringBuilder print = new StringBuilder();
-            Actor actor = (Actor) actorList.get(i);
-            print.append(actor.getName().trim());
-            print.append(" acted in ");
-            boolean hasActed = false;
-            for(int j = 0; j < movies.size();j++){
-                Movie movie = (Movie) movies.get(j);
-                if(movie.containsActor(actor)) {
-                    print.append(movie.getDate()).append(" ").append(movie.getTitle()).append(", ");
-                    hasActed = true;
-                }
-            }
-            if (!hasActed){
-                print.append("none  ");
-            }
-            print = new StringBuilder(print.substring(0, print.length() - 2));
-            System.out.println(print);
-        }
-
     }
+
 
 }
