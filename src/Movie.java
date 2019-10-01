@@ -43,6 +43,15 @@ public class Movie {
         this.actors = actors;
     }
 
+    public boolean containsActor(Actor actor) {
+        for (int i = 0; i < actors.size(); i++) {
+            if(actors.get(i).equals(actor.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public LinkedList getDirectors() {
         return directors;
     }
