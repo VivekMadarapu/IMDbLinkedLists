@@ -2,7 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-@SuppressWarnings("WeakerAccess")
 public class IMDb {
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -34,7 +33,7 @@ public class IMDb {
 
     }
 
-    public static void initActors(LinkedList actorList) throws FileNotFoundException {
+    private static void initActors(LinkedList actorList) throws FileNotFoundException {
         Scanner actorFile = new Scanner(new File("actors.txt"));
         while (actorFile.hasNext()){
             actorList.add(new Actor(actorFile.nextLine()));
@@ -42,7 +41,7 @@ public class IMDb {
         System.out.println();
     }
 
-    public static void initMovies(LinkedList movieList) throws FileNotFoundException {
+    private static void initMovies(LinkedList movieList) throws FileNotFoundException {
         Scanner dirFile = new Scanner(new File("movies.txt"));
         while (dirFile.hasNext()) {
             String line = dirFile.nextLine();
