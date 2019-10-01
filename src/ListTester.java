@@ -5,29 +5,29 @@ import java.util.Scanner;
 public class ListTester {
 
     public static void main(String[] args) throws IOException {
-//        LinkedList actorList = new LinkedList();
-//
-//        Scanner file = new Scanner(new File("actors.txt"));
-//
-//        while (file.hasNext()){
-//            actorList.add(new Actor(file.nextLine()));
-//        }
-//
-//
-//        for(int i = 0; i < actorList.size();i++){
-//            System.out.println(actorList.get(i));
-//
-//        }
-//
-//        System.out.println("\n" + ((Actor) actorList.get(0)).getName());
+        LinkedList actorList = new LinkedList();
+
+        Scanner file = new Scanner(new File("actors.txt"));
+
+        while (file.hasNext()){
+            actorList.add(new Actor(file.nextLine()));
+        }
+
+
+        for(int i = 0; i < actorList.size();i++){
+            System.out.println(actorList.get(i));
+
+        }
+
+        System.out.println("\n" + ((Actor) actorList.get(0)).getName() + "\n\n");
 
 
         LinkedList movies = new LinkedList();
 
-        Scanner file = new Scanner(new File("movies.txt"));
+        Scanner file1 = new Scanner(new File("movies.txt"));
 
-        while (file.hasNext()) {
-            String line = file.nextLine();
+        while (file1.hasNext()) {
+            String line = file1.nextLine();
             Movie movie = new Movie();
             movie.setDate(line.substring(0, 4));
             movie.setTitle(line.substring(5,38).trim());
