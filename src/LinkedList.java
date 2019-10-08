@@ -19,6 +19,20 @@ public class LinkedList {
         count++;
     }
 
+    public void removeFront() {
+        head = head.getNext();
+        count--;
+    }
+
+    public void removeBack() {
+        Node current = head;
+        for(int i = 0;i < count-2;i++){
+            current = current.getNext();
+        }
+        current.setNext(null);
+        count--;
+    }
+
     Object get(int index) {
         Node current = head;
         for(int i = 0;i < count;i++){
@@ -28,6 +42,17 @@ public class LinkedList {
             current = current.getNext();
         }
         throw new NoSuchElementException("value at index " + index + " doesn't exist");
+    }
+
+    Object indexOf(Object data) {
+        Node current = head;
+        for(int i = 0;i < count;i++){
+            if(current.get() == data){
+                return i;
+            }
+            current = current.getNext();
+        }
+        return -1;
     }
 
     int size() {

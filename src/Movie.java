@@ -43,9 +43,9 @@ public class Movie {
         this.actors = actors;
     }
 
-    public boolean containsActor(Actor actor) {
+    public boolean containsActor(String actor) {
         for (int i = 0; i < actors.size(); i++) {
-            if(actors.get(i).equals(actor.getName())){
+            if(actors.get(i).equals(actor)){
                 return true;
             }
         }
