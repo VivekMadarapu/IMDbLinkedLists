@@ -12,6 +12,8 @@ public class WordLadder {
         Scanner file = new Scanner(new File("input.txt"));
 
         HashSet<String> dict = new HashSet<>();
+        HashSet<String> used = new HashSet<>();
+
         Scanner file2 = new Scanner(new File("dictionary.txt"));
         while(file2.hasNext()){
             dict.add(file.nextLine());
@@ -21,7 +23,21 @@ public class WordLadder {
             String start = file.next();
             String end = file.next();
 
+
+
         }
 
     }
+
+    public static int checkDiff(String string1, String string2) {
+        if(string1.length() != string2.length()){
+            throw new IllegalArgumentException("String sizes don't match");
+        }
+
+        for (int i = 0; i < string1.length(); i++) {
+
+        }
+    }
+
+
 }
