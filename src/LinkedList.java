@@ -19,12 +19,12 @@ public class LinkedList {
         count++;
     }
 
-    public void removeFront() {
+    public void removeAsStack() {
         head = head.getNext();
         count--;
     }
 
-    public void removeBack() {
+    public void removeAsQueue() {
         Node current = head;
         for(int i = 0;i < count-2;i++){
             current = current.getNext();
@@ -62,10 +62,12 @@ public class LinkedList {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
+        out.append("{");
         for(int i = 0; i < this.size();i++){
             out.append(this.get(i));
             out.append(", ");
         }
+        out.append("}");
         return out.toString();
     }
 }

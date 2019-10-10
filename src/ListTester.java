@@ -1,6 +1,4 @@
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class ListTester {
 
@@ -64,7 +62,7 @@ public class ListTester {
             System.out.print(list.get(i));
         }
         System.out.println();
-        list.removeBack();
+        list.removeAsStack();
 
         for (int i = 0; i < list.size(); i++) {
             System.out.print(list.get(i));
