@@ -7,13 +7,15 @@ public class WordLadder {
 
     public static void main(String[] args) throws FileNotFoundException {
 
+        long startTime = System.currentTimeMillis();
+
         Scanner file = new Scanner(new File("input.txt"));
 
-        HashSet<String> dict = new HashSet<>();
+        HashSet<String> dictionary = new HashSet<>();
 
         Scanner file2 = new Scanner(new File("dictionary.txt"));
         while(file2.hasNext()){
-            dict.add(file2.nextLine());
+            dictionary.add(file2.nextLine());
         }
 
         while(file.hasNext()){
@@ -29,6 +31,13 @@ public class WordLadder {
             used.add(start);
             used.add(end);
             boolean finished = false;
+
+            HashSet<String> dict = new HashSet<>();
+            for (String s : dictionary){
+                if(s.length() == start.length()){
+                    dict.add(s);
+                }
+            }
 
             for (String s : dict) {
                 if (s.equals(end) && s.equals(start)) {
@@ -63,7 +72,7 @@ public class WordLadder {
                         finished = true;
                         break;
                     }
-                    else if(!used.contains(s) && s.length() == word.length() && checkDiff(s, word) == 1){
+                    else if(!used.contains(s) && checkDiff(s, word) == 1){
                         LinkedList stack = new LinkedList();
                         for (int i = current.size()-1; i >= 0; i--) {
                             stack.add(current.get(i));
@@ -73,8 +82,6 @@ public class WordLadder {
                         used.add(s);
                     }
                 }
-
-
             }
 
             if(ladder.size() == 0){
@@ -86,6 +93,8 @@ public class WordLadder {
             }
             System.out.println(ladder.get(0));
         }
+
+        System.out.println("Time to run: " + ((System.currentTimeMillis() - startTime)/1000) + " seconds");
     }
 
     private static int checkDiff(String string1, String string2) {
@@ -102,7 +111,7 @@ public class WordLadder {
     }
 
     private static int indexOfDiff(String string1, String string2) {
-        if(checkDiff(string1, string2) != 1){
+        if(checkDiff(string1, string2) > 1){
             return -1;
         }
         for (int i = 0; i < string1.length(); i++) {
@@ -112,7 +121,4 @@ public class WordLadder {
         }
         return -1;
     }
-
-
-
 }
