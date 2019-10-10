@@ -13,8 +13,9 @@ public class IMDb {
 
         for(int i = 0; i < actors.size();i++){
             StringBuilder print = new StringBuilder();
-            String actor = ((String) actors.get(i)).trim();
-            print.append(actor);
+            Actor actor = (Actor) actors.get(i);
+            actor.setName(actor.getName().trim());
+            print.append(actor.getName().trim());
             print.append(" acted in ");
             boolean hasActed = false;
             for(int j = 0; j < movies.size();j++){
@@ -36,7 +37,7 @@ public class IMDb {
     private static void initActors(LinkedList actorList) throws FileNotFoundException {
         Scanner actorFile = new Scanner(new File("actors.txt"));
         while (actorFile.hasNext()){
-            actorList.add(actorFile.nextLine());
+            actorList.add(new Actor(actorFile.nextLine()));
         }
         System.out.println();
     }
@@ -65,4 +66,6 @@ public class IMDb {
             movieList.add(movie);
         }
     }
+
+
 }

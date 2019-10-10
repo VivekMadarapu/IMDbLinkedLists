@@ -3,9 +3,7 @@ public class Actor {
 
     private String name;
 
-    public Actor() {
-        this.name = null;
-    }
+    public Actor() { this.name = null; }
 
     public Actor(String name) {
         this.name = name;
