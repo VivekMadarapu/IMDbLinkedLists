@@ -3,12 +3,13 @@ import java.util.NoSuchElementException;
 @SuppressWarnings("WeakerAccess")
 public class LinkedList {
 
-    private Node head;
+    private Node head, tail;
     private int count;
 
     public LinkedList() {
         this.head = null;
         this.count = 0;
+
     }
 
     public void add(Object data) {

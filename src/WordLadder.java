@@ -31,55 +31,63 @@ public class WordLadder {
             used.add(start);
             used.add(end);
             boolean finished = false;
+            String alphabet = "qwertyuiopasdfghjklzxcvbnm";
+            char[] letters = alphabet.toCharArray();
 
-            HashSet<String> dict = new HashSet<>();
-            for (String s : dictionary){
-                if(s.length() == start.length()){
-                    dict.add(s);
+            outer:
+            for (int i = 0; i < start.length(); i++) {
+                for(char l:letters) {
+                    String s = start.substring(0, i) + l + start.substring(i + 1);
+                    if(dictionary.contains(s)) {
+                        if (s.equals(end) && s.equals(start)) {
+                            ladder.add(start);
+                            ladder.add(end);
+                            finished = true;
+                            break outer;
+                        } else if (checkDiff(s, start) == 1) {
+                            LinkedList stack = new LinkedList();
+                            stack.add(start);
+                            stack.add(s);
+                            queue.add(stack);
+                            used.add(s);
+                        }
+                    }
                 }
             }
 
-            for (String s : dict) {
-                if (s.equals(end) && s.equals(start)) {
-                    ladder.add(start);
-                    ladder.add(end);
-                    finished = true;
-                    break;
-                }
-                else if(s.length() == start.length() && checkDiff(s, start) == 1){
-                    LinkedList stack = new LinkedList();
-                    stack.add(start);
-                    stack.add(s);
-                    queue.add(stack);
-                    used.add(s);
-                }
-            }
 
             while (!finished){
-                if (queue.size() == 0 || used.size() == dict.size()){
+                if (queue.size() == 0 || used.size() == dictionary.size()){
                     break;
                 }
                 LinkedList current = (LinkedList) queue.get(queue.size()-1);
                 queue.removeAsQueue();
+
                 String word = (String) current.get(0);
-                for (String s : dict) {
-                    if (s.equals(end) && checkDiff(s, word) == 1) {
-                        if(current.size() > 1 && indexOfDiff(s, word) == indexOfDiff(s, (String) current.get(1))){
-                            current.removeAsStack();
+                outer:
+                for (int i = 0; i < word.length(); i++) {
+                    for(char l:letters){
+                        String s = word.substring(0, i) + l + word.substring(i+1);
+                        if(dictionary.contains(s)){
+                            if (s.equals(end)) {
+                                if(current.size() > 1 && indexOfDiff(s, word) == indexOfDiff(s, (String) current.get(1))){
+                                    current.removeAsStack();
+                                }
+                                current.add(s);
+                                ladder = current;
+                                finished = true;
+                                break outer;
+                            }
+                            else if(!used.contains(s)){
+                                LinkedList stack = new LinkedList();
+                                for (int j = current.size()-1; j >= 0; j--) {
+                                    stack.add(current.get(j));
+                                }
+                                stack.add(s);
+                                queue.add(stack);
+                                used.add(s);
+                            }
                         }
-                        current.add(s);
-                        ladder = current;
-                        finished = true;
-                        break;
-                    }
-                    else if(!used.contains(s) && checkDiff(s, word) == 1){
-                        LinkedList stack = new LinkedList();
-                        for (int i = current.size()-1; i >= 0; i--) {
-                            stack.add(current.get(i));
-                        }
-                        stack.add(s);
-                        queue.add(stack);
-                        used.add(s);
                     }
                 }
             }
