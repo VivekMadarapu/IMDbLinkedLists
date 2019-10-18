@@ -102,7 +102,7 @@ public class WordLadder {
             System.out.println(ladder.get(0));
         }
 
-        System.out.println("Time to run: " + ((System.currentTimeMillis() - startTime)/1000) + " seconds");
+        System.out.println("Time to run: " + ((System.currentTimeMillis() - startTime)) + " milliseconds (" + ((System.currentTimeMillis() - startTime)/1000.0) + " seconds)");
     }
 
     private static int checkDiff(String string1, String string2) {
