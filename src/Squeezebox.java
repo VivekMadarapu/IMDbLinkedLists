@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Scanner;
+import java.util.*;
 
 public class Squeezebox {
 
@@ -17,30 +14,50 @@ public class Squeezebox {
             Scanner cards = new Scanner(c);
             while (cards.hasNext()){
                 ArrayDeque<String> cardStack = new ArrayDeque<>();
-                cardStack.addFirst(cards.next());
+                cardStack.add(cards.next());
                 game.add(cardStack);
             }
-            int i = 1;
+            boolean canPlay = false;
+
             while (game.size() != 1){
 
-                boolean canPlay = false;
-                if(i >= 3 && game.get(i).getFirst().charAt(0) == game.get(i-3).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i-3).getFirst().charAt(1)) {
-                    while (game.get(i).getFirst().charAt(0) == game.get(i-3).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i-3).getFirst().charAt(1)) {
-                        game.get(i-3).addFirst(game.get(i).removeFirst());
+                int i = 1;
+                boolean hasPlayed = false;
+                while(!hasPlayed) {
+                    boolean threeDownExists = false;
+                    if(i >= 3){
+                        threeDownExists = game.get(i).getFirst().charAt(0) == game.get(i - 3).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i - 3).getFirst().charAt(1);
                     }
-                    canPlay = true;
-                }
-                else if(game.get(i).getFirst().charAt(0) == game.get(i-1).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i-1).getFirst().charAt(1)){
-                    while (game.get(i).getFirst().charAt(0) == game.get(i-1).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i-1).getFirst().charAt(1)) {
-                        game.get(i-1).addFirst(game.get(i).removeFirst());
+//game.get(i).getFirst().charAt(0) == game.get(i - 3).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i - 3).getFirst().charAt(1)
+                    if (threeDownExists) {
+                        while (game.get(i).size() > 0) {
+                            game.get(i - 3).addFirst(game.get(i).removeFirst());
+                            hasPlayed = true;
+                            System.out.println("ran");
+                        }
+                    } else if (game.get(i).getFirst().charAt(0) == game.get(i - 1).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i - 1).getFirst().charAt(1)) {
+                        while (game.get(i).getFirst().charAt(0) == game.get(i - 1).getFirst().charAt(0) || game.get(i).getFirst().charAt(1) == game.get(i - 1).getFirst().charAt(1)) {
+                            game.get(i - 1).addFirst(game.get(i).removeFirst());
+                            hasPlayed = true;
+                            System.out.println("ran");
+                        }
                     }
-                    canPlay = true;
+                    else{
+                        i++;
+                    }
+
+                    for (int j = 0; j < game.size(); j++) {
+                        if (game.get(j).size() == 0){
+                            game.set(j, null);
+                        }
+                    }
+
+                    while(game.contains(null)){
+                        game.remove(null);
+                    }
+
                 }
 
-                if(!canPlay){
-                    break;
-                }
-                i++;
             }
             System.out.print(game.size() + " piles remaining: ");
             for (ArrayDeque<String> cs : game){
