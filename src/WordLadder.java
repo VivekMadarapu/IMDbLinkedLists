@@ -70,9 +70,9 @@ public class WordLadder {
                         String s = word.substring(0, i) + l + word.substring(i+1);
                         if(dictionary.contains(s)){
                             if (s.equals(end)) {
-                                if(current.size() > 1 && indexOfDiff(s, word) == indexOfDiff(s, (String) current.get(1))){
-                                    current.removeAsStack();
-                                }
+//                                if(current.size() > 1 && indexOfDiff(s, word) == indexOfDiff(s, (String) current.get(1))){
+//                                    current.removeAsStack();
+//                                }
                                 current.add(s);
                                 ladder = current;
                                 finished = true;
